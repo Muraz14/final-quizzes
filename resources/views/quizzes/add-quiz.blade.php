@@ -26,7 +26,7 @@
 
             <!-- Image -->
             <div style="margin-bottom: 15px;">
-                <x-input-label for="image" :value="__('Image')" />
+                <x-input-label for="image" :value="__('Image URL')" />
                 <x-text-input id="image" class="block mt-1 w-full" type="text" name="image" :value="old('image')" required autofocus />
                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
             </div>

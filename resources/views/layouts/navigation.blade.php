@@ -17,7 +17,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('quizzes.edit')" :active="request()->routeIs('quizzes.edit')">
+                    <x-nav-link :href="route('quizzes.add')" :active="request()->routeIs('quizzes.add')">
                         {{ __('Add quiz') }}
                     </x-nav-link>
                 </div>

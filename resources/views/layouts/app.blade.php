@@ -71,6 +71,22 @@
         .quiz form {
             margin-top: 10px;
         }
+
+        .question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+            gap: 15px;
+        }
+
+        .question button {
+            margin-top: 0 !important;
+        }
     </style>
 
     <body class="font-sans antialiased">

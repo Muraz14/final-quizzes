@@ -16,12 +16,17 @@
                         <p class="card-description">{{ $quiz->description }}</p>
                     </div>
                     <div class="card-buttons">
-                        <x-primary-button>Edit</x-primary-button>
+                        <form action="{{ route('quizzes.edit', ['id' => $quiz->id]) }}" method="GET">
+                            @csrf
+                            @method('get')
+                            
+                            <x-primary-button>Edit</x-primary-button>
+                        </form>
                         
                         <form action="{{ route('quizzes.remove', ['id' => $quiz->id]) }}" method="POST">
                             @csrf
-                            @method('DELETE')
-
+                            @method('delete')
+                            
                             <x-primary-button>Remove</x-primary-button>
                         </form>
                     </div>

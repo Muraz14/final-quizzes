@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // quizzes
-    Route::get('/add-quiz', [QuizController::class, 'edit'])->name('quizzes.edit');
-    Route::post('/add-quiz', [QuizController::class, 'add'])->name('quizzes.add');
+    Route::get('/add-quiz', [QuizController::class, 'add'])->name('quizzes.add');
+    Route::post('/add-quiz', [QuizController::class, 'create'])->name('quizzes.create');
     Route::get('/my-quizzes', [QuizController::class, 'my'])->name('quizzes.my');
     Route::delete('/my-quizzes/{id}', [QuizController::class, 'remove'])->name('quizzes.remove');
-    Route::get('/quiz/{id}', [QuizController::class, 'getOne'])->name('quizzes.quiz');;
+    Route::get('/quiz/{id}', [QuizController::class, 'getOne'])->name('quizzes.quiz');
+    Route::get('/quiz/edit/{id}', [QuizController::class, 'edit'])->name('quizzes.edit');
+    Route::patch('/quiz/edit/{id}', [QuizController::class, 'update'])->name('quizzes.update');
+    // questions
+    Route::post('/question/{quiz_id}', [QuestionController::class, 'create'])->name('question.create');
+    Route::delete('/question/{id}', [QuestionController::class, 'delete'])->name('question.delete');
 });
 
 require __DIR__.'/auth.php';
