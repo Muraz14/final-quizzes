@@ -14,6 +14,65 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+
+    <style>
+        .card {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .card-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 16px 16px;
+        }
+
+        .quiz img {
+            border-radius: 10px;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .quiz h2 {
+            font-size: 32px;
+            margin-top: 15px;
+        }
+
+        .quiz p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .quiz form {
+            margin-top: 10px;
+        }
+    </style>
+
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')

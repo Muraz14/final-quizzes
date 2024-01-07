@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quiz;
-use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +24,29 @@ class QuizController extends Controller
         ]);
 
         
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('/my-quizzes');
+    }
+
+    public function my(Request $request)
+    {
+        $my_quizzes = Quiz::where('user_id', Auth::id())->get();
+
+        return view('quizzes.my-quizzes', ["my_quizzes" => $my_quizzes]);
+    }
+
+    public function remove(Request $request, $id)
+    {
+        Quiz::where('id', $id)->delete();
+
+        return redirect('/my-quizzes');
+    }
+
+    public function getOne(Request $request, $id)
+    {
+        $quiz = Quiz::where('id', $id)->first();
+
+        $author = User::where('id', $quiz->user_id)->first();
+
+        return view('quizzes.quiz', ["quiz" => $quiz, "author_name" => $author->name]);
     }
 }
