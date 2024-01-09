@@ -14,5 +14,6 @@ class Quiz extends Model
         'description',
         'image',
         'user_id',
+        'status'
     ];
 }

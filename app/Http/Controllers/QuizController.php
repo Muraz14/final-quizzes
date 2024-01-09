@@ -7,6 +7,7 @@ use App\Models\Quiz;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
@@ -118,5 +119,36 @@ class QuizController extends Controller
     public function testFinish(Request $request)
     {
         return view('quizzes.quiz-finish');
+    }
+
+    public function publicQuizzes(Request $request)
+    {
+        $quizzes = DB::table('quizzes')
+                        ->select(
+                            'quizzes.id',
+                            'quizzes.title',
+                            'quizzes.description',
+                            'quizzes.image',
+                            'quizzes.user_id',
+                            'quizzes.created_at',
+                            'quizzes.updated_at',
+                            'quizzes.status',
+                            DB::raw('COUNT(questions.id) AS total_questions')
+                        )
+                        ->leftJoin('questions', 'quizzes.id', '=', 'questions.quiz_id')
+                        ->groupBy(
+                            'quizzes.id',
+                            'quizzes.title',
+                            'quizzes.description',
+                            'quizzes.image',
+                            'quizzes.user_id',
+                            'quizzes.created_at',
+                            'quizzes.updated_at',
+                            'quizzes.status'
+                        )
+                        ->where(['status' => true])
+                        ->get();
+
+        return view('dashboard', ['quizzes' => $quizzes]);
     }
 }

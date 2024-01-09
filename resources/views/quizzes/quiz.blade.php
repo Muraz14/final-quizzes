@@ -12,7 +12,7 @@
                 <h2>{{ $quiz->title }}</h2>
                 <p>{{ $quiz->description }}</p>
                 <span><b>Author:</b> {{ $author_name }}</span>
-                <p style="color: red;">@if($not_startable) No question to start the quiz (add questions in edit first)! @endif</p>
+                <p style="color: red;">@if($not_startable) No question to start the quiz @endif</p>
                 <a href="{{ route('test', ['quiz_id' => $quiz->id, 'question' => 1]) }}" id="startQuizLink">
                     <x-primary-button :disabled="$not_startable">Start quiz</x-primary-button>
                 </a>

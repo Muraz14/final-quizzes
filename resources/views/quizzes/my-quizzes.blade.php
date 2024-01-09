@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            @foreach ($my_quizzes as $quiz)
+            @forelse ($my_quizzes as $quiz)
             <a href="{{ route('quizzes.quiz', ['id' => $quiz->id]) }}">
                 <div class="card">
                     <img src="{{ $quiz->image }}" alt="Card Image" class="card-image">
@@ -32,7 +32,9 @@
                     </div>
                 </div>
             </a>
-            @endforeach
+            @empty
+            <p>No items found.</p>
+            @endforelse
         </div>
     </div>
 </x-app-layout>

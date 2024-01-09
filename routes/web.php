@@ -16,17 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('quizzes');
-
 Route::middleware('auth')->group(function () {
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // quizzes
+    Route::get('/', [QuizController::class, 'publicQuizzes'])->name('quizzes');
     Route::get('/add-quiz', [QuizController::class, 'add'])->name('quizzes.add');
     Route::post('/add-quiz', [QuizController::class, 'create'])->name('quizzes.create');
     Route::get('/my-quizzes', [QuizController::class, 'my'])->name('quizzes.my');
@@ -41,6 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/test/{quiz_id}', [QuizController::class, 'test'])->name('test');
     Route::post('/checkQuestion', [QuizController::class, 'checkQuestion'])->name('test.check');
     Route::get('/test-finish', [QuizController::class, 'testFinish'])->name('test.finish');
+    //admin
+    Route::get('/admin', [QuizController::class, 'testFinish'])->middleware(['admin'])->name('admin');
 });
 
 require __DIR__.'/auth.php';

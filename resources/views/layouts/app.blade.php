@@ -103,7 +103,7 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main style="padding: 0 10px;">
                 {{ $slot }}
             </main>
         </div>

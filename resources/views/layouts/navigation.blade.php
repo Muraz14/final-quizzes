@@ -26,6 +26,14 @@
                         {{ __('My quizzes') }}
                     </x-nav-link>
                 </div>
+                
+                @if (isCurrentUserAdmin())
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
+                </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->
@@ -81,6 +89,24 @@
                 {{ __('Quizzes') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('quizzes.add')" :active="request()->routeIs('quizzes.add')">
+                {{ __('Add quiz') }}
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('quizzes.my')" :active="request()->routeIs('quizzes.my')">
+                {{ __('My quizzes') }}
+            </x-responsive-nav-link>
+        </div>
+        
+        @if (isCurrentUserAdmin())
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                {{ __('Admin') }}
+            </x-responsive-nav-link>
+        </div>
+        @endif
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
