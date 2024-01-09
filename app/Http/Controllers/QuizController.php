@@ -48,7 +48,16 @@ class QuizController extends Controller
 
         $author = User::where('id', $quiz->user_id)->first();
 
-        return view('quizzes.quiz', ["quiz" => $quiz, "author_name" => $author->name]);
+        $quesitons_count = Question::where('quiz_id', $id)->count();
+
+        $not_startable = !$quesitons_count;
+
+        return view('quizzes.quiz', [
+            "quiz" => $quiz,
+            "author_name" => $author->name,
+            "not_startable" => $not_startable,
+            "quesitons_count" => $quesitons_count
+        ]);
     }
 
     public function edit(Request $request, $id)
@@ -70,5 +79,44 @@ class QuizController extends Controller
         Quiz::where('id', $id)->update($updated_quiz);
 
         return redirect('/quiz/' . $id);
+    }
+
+    public function test(Request $request, $quiz_id)
+    {
+        $question_num = $request->query('question');
+
+        $questions = Question::where(['quiz_id' => $quiz_id]);
+        
+        if ($questions->count() < $question_num) {
+            return redirect('/quiz/' . $quiz_id);
+        }
+
+        $curr_question = $questions->get()[$question_num - 1];
+
+        return view('quizzes.test', [
+            'curr_question' => $curr_question,
+            'quiz_id' => $quiz_id,
+            'question_num' => $question_num,
+            'questions_count' => $questions->count()
+        ]);
+    }
+
+    public function checkQuestion(Request $request)
+    {
+        $question = Question::where(['quiz_id' => $request->quiz_id])->get()[$request->question - 1];
+
+        if ($request->checkedAnswer != $question->correct_answer) {
+            return response()->json([
+                'answer' => false,
+                'correct_answer' => $question->correct_answer,
+            ]);
+        }
+
+        return response()->json(['answer' => true]);
+    }
+
+    public function testFinish(Request $request)
+    {
+        return view('quizzes.quiz-finish');
     }
 }

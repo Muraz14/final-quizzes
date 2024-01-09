@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
     // questions
     Route::post('/question/{quiz_id}', [QuestionController::class, 'create'])->name('question.create');
     Route::delete('/question/{id}', [QuestionController::class, 'delete'])->name('question.delete');
+    // test
+    Route::get('/test/{quiz_id}', [QuizController::class, 'test'])->name('test');
+    Route::post('/checkQuestion', [QuizController::class, 'checkQuestion'])->name('test.check');
+    Route::get('/test-finish', [QuizController::class, 'testFinish'])->name('test.finish');
 });
 
 require __DIR__.'/auth.php';

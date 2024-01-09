@@ -12,10 +12,20 @@
                 <h2>{{ $quiz->title }}</h2>
                 <p>{{ $quiz->description }}</p>
                 <span><b>Author:</b> {{ $author_name }}</span>
-                <form>
-                    <x-primary-button>Start quiz</x-primary-button>
-                <form>
+                <p style="color: red;">@if($not_startable) No question to start the quiz (add questions in edit first)! @endif</p>
+                <a href="{{ route('test', ['quiz_id' => $quiz->id, 'question' => 1]) }}" id="startQuizLink">
+                    <x-primary-button :disabled="$not_startable">Start quiz</x-primary-button>
+                </a>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<script>
+    const startQuizLink = document.querySelector('#startQuizLink');
+
+    startQuizLink.addEventListener('click', () => {
+        localStorage.setItem('score', '0');
+        localStorage.setItem('quesitons_count', '{{ $quesitons_count }}');
+    });
+</script>
