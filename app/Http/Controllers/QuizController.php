@@ -66,18 +66,28 @@ class QuizController extends Controller
         $quiz = Quiz::where('id', $id)->first();
         $questions = Question::where(['quiz_id' => $id])->get();
 
+        if ($quiz->user_id != Auth::id()) {
+            return redirect('/');
+        }
+
         return view('quizzes.edit-quiz', ["quiz" => $quiz, "questions" => $questions]);
     }
 
     public function update(Request $request, $id)
     {
-        $updated_quiz = [
+        $updated_quiz_fields = [
             'title' => $request->title,
             'description' => $request->description,
             'image' => $request->image,
         ];
 
-        Quiz::where('id', $id)->update($updated_quiz);
+        $quiz = Quiz::where('id', $id);
+
+        if ($quiz->first()->user_id != Auth::id()) {
+            return redirect('/');
+        }
+
+        $quiz->update($updated_quiz_fields);
 
         return redirect('/quiz/' . $id);
     }

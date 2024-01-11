@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-quiz', [QuizController::class, 'create'])->name('quizzes.create');
     Route::get('/my-quizzes', [QuizController::class, 'my'])->name('quizzes.my');
     Route::delete('/my-quizzes/{id}', [QuizController::class, 'remove'])->name('quizzes.remove');
-    Route::get('/quiz/{id}', [QuizController::class, 'getOne'])->name('quizzes.quiz');
+    Route::get('/quiz/{id}', [QuizController::class, 'getOne'])->middleware(['quiz.permission'])->name('quizzes.quiz');
     Route::get('/quiz/edit/{id}', [QuizController::class, 'edit'])->name('quizzes.edit');
     Route::patch('/quiz/edit/{id}', [QuizController::class, 'update'])->name('quizzes.update');
     // questions
