@@ -21,7 +21,7 @@ class QuizPermission
 
         $quiz = Quiz::where('id', $request->id)->first();
 
-        if (!$quiz->status && $current_user_id != 1) {
+        if (!$quiz->status && $current_user_id != 1 && $quiz->user_id != $current_user_id) {
             return redirect('/');
         }
 

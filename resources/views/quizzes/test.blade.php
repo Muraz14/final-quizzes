@@ -143,7 +143,7 @@
             </a>`;
         } else {
             nextBtnMarkup = `
-            <a href="/test/5?question={{ $question_num + 1 }}">
+            <a href="/test/{{ $quiz_id }}?question={{ $question_num + 1 }}">
                 <x-primary-button>Next</x-primary-button>
             </a>`;
         }
