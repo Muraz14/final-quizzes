@@ -158,7 +158,7 @@
     }
 
     function checkFunction(checkedAnswer) {
-        axios.post('http://localhost:8000/checkQuestion', {
+        axios.post('http://localhost:8000/check-question', {
             quiz_id: '{{ $quiz_id }}',
             question: '{{ $question_num }}',
             checkedAnswer

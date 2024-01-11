@@ -35,10 +35,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/question/{id}', [QuestionController::class, 'delete'])->name('question.delete');
     // test
     Route::get('/test/{quiz_id}', [QuizController::class, 'test'])->name('test');
-    Route::post('/checkQuestion', [QuizController::class, 'checkQuestion'])->name('test.check');
+    Route::post('/check-question', [QuizController::class, 'checkQuestion'])->name('test.check');
     Route::get('/test-finish', [QuizController::class, 'testFinish'])->name('test.finish');
     //admin
-    Route::get('/admin', [QuizController::class, 'testFinish'])->middleware(['admin'])->name('admin');
+    Route::get('/admin', [QuizController::class, 'allQuizzes'])->middleware(['admin'])->name('admin');
+    Route::patch('/update-quiz-status/{quiz_id}', [QuizController::class, 'updateQuizStatus'])->middleware(['admin'])->name('admin.update-quiz-status');
 });
 
 require __DIR__.'/auth.php';

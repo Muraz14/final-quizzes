@@ -31,7 +31,7 @@ class QuizController extends Controller
 
     public function my(Request $request)
     {
-        $my_quizzes = Quiz::where('user_id', Auth::id())->get();
+        $my_quizzes = Quiz::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
         return view('quizzes.my-quizzes', ["my_quizzes" => $my_quizzes]);
     }
@@ -121,6 +121,13 @@ class QuizController extends Controller
         return view('quizzes.quiz-finish');
     }
 
+    public function allQuizzes(Request $request)
+    {
+        $quizzes = Quiz::orderBy('created_at', 'desc')->get();
+
+        return view('quizzes.admin-quizzes', ['quizzes' => $quizzes]);
+    }
+
     public function publicQuizzes(Request $request)
     {
         $quizzes = DB::table('quizzes')
@@ -147,8 +154,21 @@ class QuizController extends Controller
                             'quizzes.status'
                         )
                         ->where(['status' => true])
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
         return view('dashboard', ['quizzes' => $quizzes]);
+    }
+
+    public function updateQuizStatus(Request $request, $quiz_id)
+    {
+        $quiz = Quiz::where(['id' => $quiz_id]);
+        $quiz_status = $quiz->first()->status;
+
+        $quiz = Quiz::where(['id' => $quiz_id])->update([
+            'status' => !$quiz_status
+        ]);
+
+        return redirect('/admin');
     }
 }
